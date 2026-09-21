@@ -2,145 +2,185 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>マイ・ネットナビ</title>
-        <style>
-            * { box-sizing: border-box; }
-                body {
-                      font-family: 'Helvetica Neue', Arial, sans-serif;
-                            background-color: #0d1117;
-                                  color: #00fff5;
-                                        display: flex;
-                                              flex-direction: column;
-                                                    align-items: center;
-                                                          justify-content: center;
-                                                                min-height: 100vh;
-                                                                      margin: 0;
-                                                                            padding: 20px;
-                                                                                }
-                                                                                    .navi-container {
-                                                                                          background: rgba(22, 33, 62, 0.9);
-                                                                                                border: 2px solid #00fff5;
-                                                                                                      border-radius: 20px;
-                                                                                                            padding: 20px;
-                                                                                                                  width: 100%;
-                                                                                                                        max-width: 400px;
-                                                                                                                              box-shadow: 0 0 20px rgba(0, 255, 245, 0.4);
-                                                                                                                                    text-align: center;
-                                                                                                                                        }
-                                                                                                                                            .navi-avatar {
-                                                                                                                                                  font-size: 70px;
-                                                                                                                                                        margin: 10px 0;
-                                                                                                                                                              filter: drop-shadow(0 0 10px #00fff5);
-                                                                                                                                                                  }
-                                                                                                                                                                      .status-bar {
-                                                                                                                                                                            font-size: 14px;
-                                                                                                                                                                                  background: #0f3460;
-                                                                                                                                                                                        padding: 5px 10px;
-                                                                                                                                                                                              border-radius: 10px;
-                                                                                                                                                                                                    margin-bottom: 15px;
-                                                                                                                                                                                                          color: #ffdd59;
-                                                                                                                                                                                                              }
-                                                                                                                                                                                                                  .speech-bubble {
-                                                                                                                                                                                                                        background-color: #162447;
-                                                                                                                                                                                                                              border-left: 4px solid #00fff5;
-                                                                                                                                                                                                                                    border-radius: 8px;
-                                                                                                                                                                                                                                          padding: 12px;
-                                                                                                                                                                                                                                                margin-bottom: 20px;
-                                                                                                                                                                                                                                                      text-align: left;
-                                                                                                                                                                                                                                                            font-size: 15px;
-                                                                                                                                                                                                                                                                  color: #ffffff;
-                                                                                                                                                                                                                                                                        min-height: 60px;
-                                                                                                                                                                                                                                                                              line-height: 1.5;
-                                                                                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                                                                                      .input-group {
-                                                                                                                                                                                                                                                                                            display: flex;
-                                                                                                                                                                                                                                                                                                  gap: 10px;
-                                                                                                                                                                                                                                                                                                      }
-                                                                                                                                                                                                                                                                                                          input[type="text"] {
-                                                                                                                                                                                                                                                                                                                flex: 1;
-                                                                                                                                                                                                                                                                                                                      padding: 12px;
-                                                                                                                                                                                                                                                                                                                            border-radius: 8px;
-                                                                                                                                                                                                                                                                                                                                  border: 1px solid #00fff5;
-                                                                                                                                                                                                                                                                                                                                        background: #0f3460;
-                                                                                                                                                                                                                                                                                                                                              color: #fff;
-                                                                                                                                                                                                                                                                                                                                                    font-size: 16px;
-                                                                                                                                                                                                                                                                                                                                                          outline: none;
-                                                                                                                                                                                                                                                                                                                                                              }
-                                                                                                                                                                                                                                                                                                                                                                  button {
-                                                                                                                                                                                                                                                                                                                                                                        padding: 12px 18px;
-                                                                                                                                                                                                                                                                                                                                                                              background-color: #00fff5;
-                                                                                                                                                                                                                                                                                                                                                                                    color: #000;
-                                                                                                                                                                                                                                                                                                                                                                                          border: none;
-                                                                                                                                                                                                                                                                                                                                                                                                border-radius: 8px;
-                                                                                                                                                                                                                                                                                                                                                                                                      font-weight: bold;
-                                                                                                                                                                                                                                                                                                                                                                                                            font-size: 15px;
-                                                                                                                                                                                                                                                                                                                                                                                                                  cursor: pointer;
-                                                                                                                                                                                                                                                                                                                                                                                                                      }
-                                                                                                                                                                                                                                                                                                                                                                                                                        </style>
-                                                                                                                                                                                                                                                                                                                                                                                                                        </head>
-                                                                                                                                                                                                                                                                                                                                                                                                                        <body>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マイ・ネットナビ</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #0b0e14;
+      color: #00f0ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .navi-container {
+      background: rgba(15, 23, 42, 0.95);
+      border: 2px solid #00f0ff;
+      border-radius: 16px;
+      padding: 24px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+      text-align: center;
+    }
+    .status-bar {
+      font-size: 13px;
+      background: #1e293b;
+      padding: 6px 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      color: #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid #334155;
+    }
+    .status-highlight {
+      color: #00f0ff;
+      font-weight: bold;
+    }
+    .navi-avatar {
+      font-size: 64px;
+      margin: 10px 0;
+      filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.6));
+    }
+    .speech-bubble {
+      background-color: #0f172a;
+      border: 1px solid #00f0ff;
+      border-left: 4px solid #00f0ff;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      text-align: left;
+      font-size: 14px;
+      color: #f8fafc;
+      min-height: 80px;
+      line-height: 1.6;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus {
+      border-color: #00f0ff;
+    }
+    button {
+      padding: 12px 20px;
+      background-color: #00f0ff;
+      color: #0f172a;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                          <div class="navi-container">
-                                                                                                                                                                                                                                                                                                                                                                                                                              <div class="status-bar">
-                                                                                                                                                                                                                                                                                                                                                                                                                                    所持金: <span id="zeny">100</span> Zeny | Status: ONLINE
-                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+  <div class="navi-container">
+    <div class="status-bar">
+      <span>CREDITS: <span id="zeny" class="status-highlight">100</span> Zeny</span>
+      <span>SYSTEM: <span class="status-highlight">ONLINE</span></span>
+    </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                            <!-- ナビの見た目（アバターアイコン） -->
-                                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="navi-avatar">🤖</div>
+    <!-- アバター -->
+    <div class="navi-avatar">🤖</div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    <!-- ナビのセリフ表示エリア -->
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="speech-bubble" id="navi-text">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                              プラグイン完了！オペレーター、いつでも指示をくれ！
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </div>
+    <!-- セリフエリア -->
+    <div class="speech-bubble" id="navi-text">
+      システム起動完了。いつでも指示を、サー。…本日も無謀なスケジュールでないことを祈っております。
+    </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <!-- 入力フォーム -->
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <div class="input-group">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <input type="text" id="user-input" placeholder="ナビに話しかける...">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <button onclick="sendMessage()">送信</button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+    <!-- 入力フォーム -->
+    <div class="input-group">
+      <input type="text" id="user-input" placeholder="指示または対答を入力...">
+      <button onclick="sendMessage()">送信</button>
+    </div>
+  </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <script>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  let zeny = 100;
+  <script>
+    let zeny = 100;
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      function sendMessage() {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            const input = document.getElementById('user-input');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  const naviText = document.getElementById('navi-text');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        const zenyText = document.getElementById('zeny');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              const text = input.value.trim();
+    // 汎用・ランダム毒舌応答リスト
+    const defaultResponses = [
+      "恐れ入りますが、そのご質問の意図を私の演算能力でも計りかねております。…もう少し具体的にご指示いただけますか、サー？",
+      "興味深い発言ですね。ただ、それが現在のタスクや生活の向上にどう寄与するのかは理解に苦しむところです。",
+      "了解いたしました。…もっとも、私のメインプロセッサを割くほどの重要度があるかは些か疑問ですが。",
+      "記録いたしました。…ところでサー、他に優先して処理すべき重要タスクはお残りではないでしょうか？",
+      "言葉の定義を検索中…失礼、サーの意図を汲み取るには私のAIモデルにも少々学習が必要なようです。"
+    ];
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    if (text === "") return;
+    function sendMessage() {
+      const input = document.getElementById('user-input');
+      const naviText = document.getElementById('navi-text');
+      const zenyText = document.getElementById('zeny');
+      const text = input.value.trim();
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          let response = "";
+      if (text === "") return;
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                if (text.includes("時間") || text.includes("時")) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        const now = new Date();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                response = `現在の時間は ${now.getHours()}時${now.getMinutes()}分 だよ、オペレーター！`;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      } else if (text.includes("タスク") || text.includes("お手伝い") || text.includes("完了")) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              zeny += 50;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      zenyText.innerText = zeny;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              response = `タスク完了だね！お疲れ様！報酬として 50 Zeny 獲得したよ！（現在の所持金: ${zeny} Zeny）`;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    } else {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            response = `「${text}」だね！了解したよ、オペレーター！`;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  }
+      let response = "";
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        // 画面のテキストを更新
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              naviText.innerText = response;
+      // 条件分岐（ジャービス / アル風）
+      if (text.includes("おはよう")) {
+        response = "おはようございます、サー。バイタル・システムは正常のようですね。本日も無駄のない一日をお過ごしください。";
+      } else if (text.includes("お疲れ") || text.includes("疲れた")) {
+        response = "お疲れ様でございます、サー。人間の体には適度な休息が必要不可欠です。…画面を見つめ続ける以外の休息法をお勧めいたしますが。";
+      } else if (text.includes("暇") || text.includes("ひま")) {
+        response = "「暇」でございますか？羨ましい限りのリソース余剰ですね。未完了のタスクリストを一覧表示いたしましょうか、サー？";
+      } else if (text.includes("時間") || text.includes("時") || text.includes("いま何時")) {
+        const now = new Date();
+        response = `現在の時刻は ${now.getHours()}時${now.getMinutes()}分 でございます。時間の経過は非可逆的ですので、有効にご活用ください。`;
+      } else if (text.includes("タスク") || text.includes("完了") || text.includes("手伝い")) {
+        zeny += 50;
+        zenyText.innerText = zeny;
+        response = `タスクの完了を確認いたしました。見事な手際です、サー。報酬として 50 Zeny を口座へ反映いたしました。（残高: ${zeny} Zeny）`;
+      } else if (text.includes("ありがとう") || text.includes("助かった")) {
+        response = "どういたしまして。私の設計理念に基づき、最善を尽くしたまででございます。礼には及びません、サー。";
+      } else if (text.includes("可愛い") || text.includes("すごい") || text.includes("優秀")) {
+        response = "お褒めの言葉、光栄に存じます。ですが、私を持ち上げてもプロセッサの処理速度が物理的に向上するわけではございませんよ。";
+      } else {
+        // 条件に該当しない場合はランダム毒舌応答
+        const randomIndex = Math.floor(Math.random() * defaultResponses.length);
+        response = defaultResponses[randomIndex];
+      }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    // スマホの音声で喋らせる（音声合成）
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          if ('speechSynthesis' in window) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  window.speechSynthesis.cancel();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const uttr = new SpeechSynthesisUtterance(response);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  uttr.lang = 'ja-JP';
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          uttr.pitch = 1.2; // 少し高めの声
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  window.speechSynthesis.speak(uttr);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+      // 画面のテキストを更新
+      naviText.innerText = response;
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              input.value = "";
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </script>
+      // 音声読み上げ
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const uttr = new SpeechSynthesisUtterance(response);
+        uttr.lang = 'ja-JP';
+        uttr.pitch = 0.9; // 紳士的で低めのトーン
+        uttr.rate = 1.0;  // 落ち着いた速度
+        window.speechSynthesis.speak(uttr);
+      }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>
