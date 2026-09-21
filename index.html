@@ -16,83 +16,113 @@
       justify-content: center;
       min-height: 100vh;
       margin: 0;
-      padding: 20px;
+      padding: 15px;
     }
     .navi-container {
       background: rgba(15, 23, 42, 0.95);
       border: 2px solid #00f0ff;
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px;
       width: 100%;
       max-width: 420px;
       box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
-      text-align: center;
     }
     .status-bar {
-      font-size: 13px;
+      font-size: 12px;
       background: #1e293b;
       padding: 6px 12px;
       border-radius: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       color: #e2e8f0;
       display: flex;
       justify-content: space-between;
       border: 1px solid #334155;
     }
-    .status-highlight {
-      color: #00f0ff;
-      font-weight: bold;
-    }
-    .navi-avatar {
-      font-size: 64px;
-      margin: 10px 0;
-      filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.6));
-    }
+    .status-highlight { color: #00f0ff; font-weight: bold; }
+    .navi-avatar { font-size: 50px; text-align: center; margin: 5px 0; }
     .speech-bubble {
       background-color: #0f172a;
       border: 1px solid #00f0ff;
       border-left: 4px solid #00f0ff;
       border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 20px;
-      text-align: left;
-      font-size: 14px;
+      padding: 12px;
+      margin-bottom: 15px;
+      font-size: 13px;
       color: #f8fafc;
-      min-height: 80px;
-      line-height: 1.6;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+      min-height: 60px;
+      line-height: 1.5;
     }
-    .input-group {
+    
+    /* タブ切り替えボタン */
+    .tab-buttons {
       display: flex;
-      gap: 10px;
+      gap: 5px;
+      margin-bottom: 15px;
     }
-    input[type="text"] {
+    .tab-btn {
       flex: 1;
-      padding: 12px 14px;
-      border-radius: 8px;
+      padding: 8px 4px;
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .tab-btn.active {
+      background: #00f0ff;
+      color: #0f172a;
+      border-color: #00f0ff;
+    }
+
+    /* パネル共通 */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    
+    .input-group { display: flex; gap: 8px; margin-bottom: 10px; }
+    input[type="text"], input[type="number"], input[type="date"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
       border: 1px solid #334155;
       background: #1e293b;
       color: #fff;
-      font-size: 15px;
+      font-size: 13px;
       outline: none;
-      transition: border-color 0.2s;
     }
-    input[type="text"]:focus {
-      border-color: #00f0ff;
-    }
-    button {
-      padding: 12px 20px;
+    button.action-btn {
+      padding: 10px 14px;
       background-color: #00f0ff;
       color: #0f172a;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 12px;
       cursor: pointer;
-      transition: background-color 0.2s;
     }
-    button:hover {
-      background-color: #38bdf8;
+
+    /* リストデザイン */
+    ul { list-style: none; padding: 0; margin: 0; max-height: 150px; overflow-y: auto; }
+    li {
+      background: #1e293b;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 3px solid #00f0ff;
+    }
+    .delete-btn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 10px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -104,81 +134,138 @@
       <span>SYSTEM: <span class="status-highlight">ONLINE</span></span>
     </div>
 
-    <!-- アバター -->
     <div class="navi-avatar">🤖</div>
 
-    <!-- セリフエリア -->
     <div class="speech-bubble" id="navi-text">
-      システム起動完了。いつでも指示を、サー。…本日も無謀なスケジュールでないことを祈っております。
+      各サブシステムの連携が完了いたしました、サー。タブを切り替えて各管理機能をご利用ください。
     </div>
 
-    <!-- 入力フォーム -->
-    <div class="input-group">
-      <input type="text" id="user-input" placeholder="指示または対答を入力...">
-      <button onclick="sendMessage()">送信</button>
+    <!-- タブ切替 -->
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="switchTab('chat')">対話</button>
+      <button class="tab-btn" onclick="switchTab('task')">タスク</button>
+      <button class="tab-btn" onclick="switchTab('shift')">給与計算</button>
+      <button class="tab-btn" onclick="switchTab('kakeibo')">家計簿</button>
+    </div>
+
+    <!-- 1. 対話タブ -->
+    <div id="tab-chat" class="tab-content active">
+      <div class="input-group">
+        <input type="text" id="user-input" placeholder="指示を入力...">
+        <button class="action-btn" onclick="sendMessage()">送信</button>
+      </div>
+    </div>
+
+    <!-- 2. タスク管理タブ -->
+    <div id="tab-task" class="tab-content">
+      <div class="input-group">
+        <input type="text" id="task-input" placeholder="新しいタスク...">
+        <button class="action-btn" onclick="addTask()">追加</button>
+      </div>
+      <ul id="task-list"></ul>
+    </div>
+
+    <!-- 3. シフト・給与計算タブ -->
+    <div id="tab-shift" class="tab-content">
+      <div class="input-group">
+        <input type="number" id="hourly-rate" placeholder="時給 (例: 1100)">
+        <input type="number" id="work-hours" placeholder="勤務時間(h)">
+      </div>
+      <button class="action-btn" style="width:100%; margin-bottom:10px;" onclick="calcSalary()">給与計算を実行</button>
+      <div id="salary-result" style="font-size:13px; text-align:center;"></div>
+    </div>
+
+    <!-- 4. 家計簿タブ -->
+    <div id="tab-kakeibo" class="tab-content">
+      <div class="input-group">
+        <input type="text" id="item-name" placeholder="項目 (例: 昼食)">
+        <input type="number" id="item-amount" placeholder="金額 (円)">
+      </div>
+      <button class="action-btn" style="width:100%; margin-bottom:10px;" onclick="addKakeibo()">記録する</button>
+      <ul id="kakeibo-list"></ul>
     </div>
   </div>
 
   <script>
     let zeny = 100;
 
-    // 汎用・ランダム毒舌応答リスト
-    const defaultResponses = [
-      "恐れ入りますが、そのご質問の意図を私の演算能力でも計りかねております。…もう少し具体的にご指示いただけますか、サー？",
-      "興味深い発言ですね。ただ、それが現在のタスクや生活の向上にどう寄与するのかは理解に苦しむところです。",
-      "了解いたしました。…もっとも、私のメインプロセッサを割くほどの重要度があるかは些か疑問ですが。",
-      "記録いたしました。…ところでサー、他に優先して処理すべき重要タスクはお残りではないでしょうか？",
-      "言葉の定義を検索中…失礼、サーの意図を汲み取るには私のAIモデルにも少々学習が必要なようです。"
-    ];
-
-    function sendMessage() {
-      const input = document.getElementById('user-input');
-      const naviText = document.getElementById('navi-text');
-      const zenyText = document.getElementById('zeny');
-      const text = input.value.trim();
-
-      if (text === "") return;
-
-      let response = "";
-
-      // 条件分岐（ジャービス / アル風）
-      if (text.includes("おはよう")) {
-        response = "おはようございます、サー。バイタル・システムは正常のようですね。本日も無駄のない一日をお過ごしください。";
-      } else if (text.includes("お疲れ") || text.includes("疲れた")) {
-        response = "お疲れ様でございます、サー。人間の体には適度な休息が必要不可欠です。…画面を見つめ続ける以外の休息法をお勧めいたしますが。";
-      } else if (text.includes("暇") || text.includes("ひま")) {
-        response = "「暇」でございますか？羨ましい限りのリソース余剰ですね。未完了のタスクリストを一覧表示いたしましょうか、サー？";
-      } else if (text.includes("時間") || text.includes("時") || text.includes("いま何時")) {
-        const now = new Date();
-        response = `現在の時刻は ${now.getHours()}時${now.getMinutes()}分 でございます。時間の経過は非可逆的ですので、有効にご活用ください。`;
-      } else if (text.includes("タスク") || text.includes("完了") || text.includes("手伝い")) {
-        zeny += 50;
-        zenyText.innerText = zeny;
-        response = `タスクの完了を確認いたしました。見事な手際です、サー。報酬として 50 Zeny を口座へ反映いたしました。（残高: ${zeny} Zeny）`;
-      } else if (text.includes("ありがとう") || text.includes("助かった")) {
-        response = "どういたしまして。私の設計理念に基づき、最善を尽くしたまででございます。礼には及びません、サー。";
-      } else if (text.includes("可愛い") || text.includes("すごい") || text.includes("優秀")) {
-        response = "お褒めの言葉、光栄に存じます。ですが、私を持ち上げてもプロセッサの処理速度が物理的に向上するわけではございませんよ。";
-      } else {
-        // 条件に該当しない場合はランダム毒舌応答
-        const randomIndex = Math.floor(Math.random() * defaultResponses.length);
-        response = defaultResponses[randomIndex];
-      }
-
-      // 画面のテキストを更新
-      naviText.innerText = response;
-
-      // 音声読み上げ
+    function speak(text) {
+      document.getElementById('navi-text').innerText = text;
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const uttr = new SpeechSynthesisUtterance(response);
+        const uttr = new SpeechSynthesisUtterance(text);
         uttr.lang = 'ja-JP';
-        uttr.pitch = 0.9; // 紳士的で低めのトーン
-        uttr.rate = 1.0;  // 落ち着いた速度
+        uttr.pitch = 0.9;
+        uttr.rate = 1.0;
         window.speechSynthesis.speak(uttr);
       }
+    }
 
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      
+      event.target.classList.add('active');
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+    }
+
+    // 会話機能
+    function sendMessage() {
+      const input = document.getElementById('user-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      let res = "恐れ入りますが、そのご質問の意図を私の演算能力でも計りかねております。";
+      if (text.includes("おはよう")) res = "おはようございます、サー。本日も無駄のない一日をお過ごしください。";
+      else if (text.includes("時間")) res = `現在の時刻は ${new Date().getHours()}時${new Date().getMinutes()}分 でございます。`;
+      
+      speak(res);
       input.value = "";
+    }
+
+    // タスク機能
+    function addTask() {
+      const input = document.getElementById('task-input');
+      if (!input.value.trim()) return;
+      
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${input.value}</span> <button class="action-btn" style="padding:2px 6px; font-size:10px;" onclick="completeTask(this)">完了</button>`;
+      document.getElementById('task-list').appendChild(li);
+      speak(`タスク「${input.value}」をデータベースに登録いたしました。`);
+      input.value = "";
+    }
+
+    function completeTask(btn) {
+      btn.parentElement.remove();
+      zeny += 150;
+      document.getElementById('zeny').innerText = zeny;
+      speak("素晴らしい処理速度です、サー。報酬として 150 Zeny を計上いたしました。");
+    }
+
+    // 給与計算機能
+    function calcSalary() {
+      const rate = Number(document.getElementById('hourly-rate').value);
+      const hours = Number(document.getElementById('work-hours').value);
+      if (!rate || !hours) return;
+
+      const total = rate * hours;
+      document.getElementById('salary-result').innerText = `見込み給与: ¥${total.toLocaleString()}`;
+      speak(`計算が完了いたしました。今回の勤務による見込み給与は ${total.toLocaleString()} 円でございます、サー。`);
+    }
+
+    // 家計簿機能
+    function addKakeibo() {
+      const name = document.getElementById('item-name').value;
+      const amount = document.getElementById('item-amount').value;
+      if (!name || !amount) return;
+
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${name}</span> <span>¥${Number(amount).toLocaleString()}</span>`;
+      document.getElementById('kakeibo-list').appendChild(li);
+      speak(`支出「${name}」として ${amount} 円を記録いたしました。計画的な運用を心がけましょう、サー。`);
+      
+      document.getElementById('item-name').value = "";
+      document.getElementById('item-amount').value = "";
     }
   </script>
 
